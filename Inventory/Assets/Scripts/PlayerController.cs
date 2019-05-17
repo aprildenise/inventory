@@ -7,17 +7,19 @@ public class PlayerController : MonoBehaviour
 
     // References
     private Rigidbody2D rigidBody;
+    [SerializeField] private Inventory inventoryManager;
 
 
     // For movement
     [SerializeField] private float moveSpeed;
     private float dashSpeed;
     private Vector2 moveVelocity;
-    [SerializeField] private float rotationSpeed;
     private Quaternion rotateDirection;
 
     // For interaction
     private GameObject currentInteraction;
+    private GameObject heldItem;
+    private bool isHolding;
 
     // Start is called before the first frame update
     void Start()
@@ -29,6 +31,7 @@ public class PlayerController : MonoBehaviour
             Debug.LogWarning("PlayerController cannot find a RigidBody2D component on the object it is attached to.", rigidBody);
         }
 
+        isHolding = false;
         dashSpeed = moveSpeed * 2;
     }
 
@@ -46,23 +49,76 @@ public class PlayerController : MonoBehaviour
         moveVelocity = moveInput.normalized * moveSpeed;
 
 
-        // Get interact input
+        // Get (A) interact input
         if (Input.GetButtonDown("Submit"))
         {
             // Check to see if we have collided with something to interact with
+            // Player is close enough to an interactable
             if (currentInteraction != null)
             {
-                Debug.Log("Player is about to interact with " + currentInteraction);
-                currentInteraction.GetComponent<Interactable>().Interact();
+                // Choose how the player can interact with the interactable based on what's attached to it
+                // Interactable is an item
+                if (currentInteraction.GetComponent<PickupItem>() != null)
+                {
+                    // Player is not already holding an item
+                    if (!isHolding)
+                    {
+                        HoldItem();
+                        return;
+                    }
+                    
+                }
             }
-            else
+
+            // Player is holding an item
+            if (isHolding)
             {
-                Debug.Log("Player is not close enough to interact with anything.");
+                ThrowItem();
+                return;
+            }
+        }
+
+        //Get (X) bag input
+        if (Input.GetButtonDown("Fire2"))
+        {
+            // Player is holding an item
+            if (isHolding)
+            {
+                // Bag the item
+                BagItem(heldItem);
+                heldItem = null;
+                isHolding = false;
+
             }
         }
 
 
     }
+
+
+    private void BagItem(GameObject item)
+    {
+        
+    }
+
+    private void HoldItem()
+    {
+        PickupItem item = currentInteraction.GetComponent<PickupItem>();
+        heldItem = item.PickUp();
+        isHolding = true;
+
+        Debug.Log("Held an item. helditem:" + heldItem);
+    }
+
+
+    private void ThrowItem()
+    {
+        heldItem = null;
+        isHolding = false;
+        Debug.Log("Threw an item. helditem:" + heldItem);
+    }
+
+
 
     // Move the player based on the movement input
     private void FixedUpdate()
@@ -102,4 +158,5 @@ public class PlayerController : MonoBehaviour
         }
         
     }
+
 }

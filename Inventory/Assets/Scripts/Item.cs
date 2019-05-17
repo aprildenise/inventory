@@ -16,12 +16,12 @@ public class Item : ScriptableObject
     public string itemDescription;
     public int itemSize;
     public int itemQuantity;
-    public ItemType itemType;
+    public InteractType interactType;
 
 
 }
 
-public enum ItemType
+public enum InteractType
 {
     Neither = 0,
     Consumable = 1,
