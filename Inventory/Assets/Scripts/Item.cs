@@ -10,11 +10,12 @@ public class Item : ScriptableObject
     public string itemName;
 
     public Sprite itemSprite;
-    public Sprite itemSpriteII;
+    public Sprite itemSpriteAlt;
 
     [TextArea]
     public string itemDescription;
-    public int itemSize;
+    public int itemWidth;
+    public int itemHeight;
     public int itemQuantity;
     public InteractType interactType;
 

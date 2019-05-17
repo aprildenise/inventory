@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: testItem
   m_EditorClassIdentifier: 
   itemName: Lovely stick
-  itemSprite: {fileID: 0}
-  itemSpriteII: {fileID: 0}
-  itemDescription: A lovely stick on the ground. We're using it to test!
-  itemSize: 2
+  itemSprite: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+  itemSpriteAlt: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+  itemDescription: Wow. It's quite lovely.
+  itemWidth: 1
+  itemHeight: 1
   itemQuantity: 1
-  itemType: 0
+  interactType: 2

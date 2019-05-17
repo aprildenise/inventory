@@ -12,4 +12,9 @@ public class PickupItem : MonoBehaviour
     {
         return this.gameObject;
     }
+
+    public Item GetItemProperties()
+    {
+        return this.item;
+    }
 }

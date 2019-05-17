@@ -21,6 +21,9 @@ public class PlayerController : MonoBehaviour
     private GameObject heldItem;
     private bool isHolding;
 
+    // For inventory/menu management
+    private bool onMenu;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -29,15 +32,51 @@ public class PlayerController : MonoBehaviour
         if (rigidBody == null)
         {
             Debug.LogWarning("PlayerController cannot find a RigidBody2D component on the object it is attached to.", rigidBody);
+            return;
+        }
+        if (inventoryManager == null)
+        {
+            Debug.LogWarning("PlayerController cannot find the Inventory class.", inventoryManager);
+            return;
         }
 
         isHolding = false;
         dashSpeed = moveSpeed * 2;
+        onMenu = false;
+
+        Debug.Log("Successfully Init Player Controller");
     }
 
     // Update is called once per frame
     void Update()
     {
+
+        // Get inventory menu input
+        if (Input.GetButtonDown("QButton"))
+        {
+            // Open/close inventory screen
+            // Player is already in the inventory screen. Hide the inventory
+            if (onMenu)
+            {
+                inventoryManager.HideInventory();
+                onMenu = false;
+            }
+            // Player is not on the inventory screen. Display the inventory
+            else
+            {
+                onMenu = true;
+                inventoryManager.DisplayInventory();
+            }
+        }
+
+
+        // Prevent movement inputs if player is on the menu
+        if (onMenu)
+        {
+            return;
+        }
+
+
         // Get movement input
         Vector2 moveInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
         // Get rotation direction based on movement input
@@ -79,7 +118,7 @@ public class PlayerController : MonoBehaviour
         }
 
         //Get (X) bag input
-        if (Input.GetButtonDown("Fire2"))
+        if (Input.GetButtonDown("EButton"))
         {
             // Player is holding an item
             if (isHolding)
@@ -98,7 +137,7 @@ public class PlayerController : MonoBehaviour
 
     private void BagItem(GameObject item)
     {
-        
+        inventoryManager.AddNewItemToInventory(item);
     }
 
     private void HoldItem()
