@@ -140,13 +140,15 @@ public class PlayerController : MonoBehaviour
         inventoryManager.AddNewItemToInventory(item);
     }
 
+
+
     private void HoldItem()
     {
         PickupItem item = currentInteraction.GetComponent<PickupItem>();
         heldItem = item.PickUp();
         isHolding = true;
 
-        Debug.Log("Held an item. helditem:" + heldItem);
+        //Debug.Log("Held an item. helditem:" + heldItem);
     }
 
 
@@ -154,7 +156,7 @@ public class PlayerController : MonoBehaviour
     {
         heldItem = null;
         isHolding = false;
-        Debug.Log("Threw an item. helditem:" + heldItem);
+        //Debug.Log("Threw an item. helditem:" + heldItem);
     }
 
 
@@ -172,12 +174,12 @@ public class PlayerController : MonoBehaviour
     // Check if the player is close enough to interact with something
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("Player collided with " + collision.name);
+        //Debug.Log("Player collided with " + collision.name);
         // Check if the thing the player collided with is an interactable
         if (collision.CompareTag("Interactable"))
         {
             currentInteraction = collision.gameObject;
-            Debug.Log("This collision is an interactable!");
+            //Debug.Log("This collision is an interactable!");
         }
         
     }
@@ -192,7 +194,7 @@ public class PlayerController : MonoBehaviour
             if (currentInteraction.CompareTag("Interactable"))
             {
                 currentInteraction = null;
-                Debug.Log("Player is out of range of the interactable");
+                //Debug.Log("Player is out of range of the interactable");
             }
         }
         

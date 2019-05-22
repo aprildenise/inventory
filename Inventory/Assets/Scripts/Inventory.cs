@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.EventSystems;
 
 public class Inventory : MonoBehaviour
 {
@@ -10,20 +11,23 @@ public class Inventory : MonoBehaviour
     [SerializeField] private GameObject UI;
     private List<InventoryPage> inventoryPages;
     [SerializeField] private TextMeshProUGUI descriptionBox;
+    [SerializeField] private EventSystem eventSystem;
+
+    private InventoryPage currentPage;
 
 
     // Variables
     private List<Item> inventory;
-    private int totalPages;
     private int totalItems;
+    private bool isUIActive;
 
-    // Start is called before the first frame update
+
+
     private void Awake()
     {
         // Setups
         inventory = new List<Item>();
         totalItems = 0;
-        totalPages = 1;
 
         // Get the correct references
         // UI reference
@@ -36,6 +40,14 @@ public class Inventory : MonoBehaviour
         if (descriptionBox == null)
         {
             Debug.LogWarning("Inventory Class is missing a reference to the description box.");
+            return;
+        }
+
+
+        // EventSystem reference
+        if (eventSystem == null)
+        {
+            Debug.LogWarning("Inventory Class is missing a reference to the Event System that manages it.");
             return;
         }
 
@@ -79,23 +91,36 @@ public class Inventory : MonoBehaviour
     }
 
 
-    /// <summary>
-    /// Show the inventory menu by setting it as active.
-    /// </summary>
-    public void DisplayInventory()
+    private void Update()
     {
-        //UI.SetActive(true);
-        UI.GetComponent<Canvas>().enabled = true;
+        // Update the text in the description box
+        GameObject current = eventSystem.currentSelectedGameObject;
+        if (current != null && isUIActive)
+        {
+            descriptionBox.text = current.GetComponent<ItemUI>().GetItemDescription();
+        }
+        
     }
 
 
     /// <summary>
-    /// Hide the inventory menu by setting it as inactive.
+    /// Show the inventory menu by setting it's canvas as true
+    /// </summary>
+    public void DisplayInventory()
+    {
+        UI.GetComponent<Canvas>().enabled = true;
+        isUIActive = true;
+
+    }
+
+
+    /// <summary>
+    /// Hide the inventory menu by setting it's canvas as false
     /// </summary>
     public void HideInventory()
-    {
-        //UI.SetActive(false);
+    { 
         UI.GetComponent<Canvas>().enabled = false;
+        isUIActive = false;
 
     }
 
@@ -151,6 +176,8 @@ public class Inventory : MonoBehaviour
         }
 
         // No pages were found, create a new page
+
+        totalItems++;
     }
 
 
@@ -175,9 +202,9 @@ public class Inventory : MonoBehaviour
             for (int j = 0; j < item.itemWidth; j++)
             {
                 // debug
-                int temp = startRow + i;
-                int t = startCol + j;
-                Debug.Log("is set to occupied:" + temp + "," + t);
+                //int temp = startRow + i;
+                //int t = startCol + j;
+                //Debug.Log("is set to occupied:" + temp + "," + t);
 
                 // get a slot in the designated area
                 InventorySlot slot = inventorySlots[startRow + i, startCol + j];
@@ -221,9 +248,9 @@ public class Inventory : MonoBehaviour
                     // Item cannot be placed here
 
                     //debug
-                    int temp = startRow + i;
-                    int t = startCol + j;
-                    Debug.Log("item cannot be placed at:" + startRow + "," + startCol);
+                    //int temp = startRow + i;
+                    //int t = startCol + j;
+                    //Debug.Log("item cannot be placed at:" + startRow + "," + startCol);
 
                     return false;
                 }

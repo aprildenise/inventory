@@ -13,7 +13,7 @@ public class ItemUI : MonoBehaviour
     private RectTransform rt;
 
     // Variables
-    private Item item;
+    public Item item; // change to private when done debugging
     private InventorySlot topLeftSlot;
 
     // Setups
@@ -40,7 +40,24 @@ public class ItemUI : MonoBehaviour
     }
 
 
+    public void SetItem(Item newItem)
+    {
+        item = newItem;
+    }
 
+
+    public string GetItemDescription()
+    {
+        if (item == null)
+        {
+            Debug.LogWarning(gameObject.name + " does not have an Item object in it.");
+            return null;
+        }
+        else
+        {
+            return item.itemDescription;
+        }
+    }
 
     public void SetItemImage(Sprite image)
     {
@@ -50,7 +67,7 @@ public class ItemUI : MonoBehaviour
 
     public void SetUISize(float width, float height)
     {
-        Debug.Log("sizeDelta:" + rt.sizeDelta);
+        //Debug.Log("sizeDelta:" + rt.sizeDelta);
         rt.sizeDelta = new Vector2(width, height);
     }
 
@@ -58,10 +75,10 @@ public class ItemUI : MonoBehaviour
     public void SetPosition(float x, float y)
     {
         
-        Debug.Log("before:" + rt.anchoredPosition);
+        //Debug.Log("before:" + rt.anchoredPosition);
         rt.anchoredPosition = new Vector2(x, y * -1);
         //rt.pivot = new Vector2(0, 1);
-        Debug.Log("after:" + rt.anchoredPosition);
+        //Debug.Log("after:" + rt.anchoredPosition);
         
     }
 

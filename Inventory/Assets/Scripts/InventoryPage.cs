@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class InventoryPage : MonoBehaviour
 {
@@ -8,6 +9,7 @@ public class InventoryPage : MonoBehaviour
     // References
     private Transform itemUIParent; // gameobject that has all the itemUIs
     private GameObject itemUIPrefab; // prefab for an individual itemUI
+    [SerializeField] private EventSystem eventSystem;
 
     // Variables
     public int rows;
@@ -20,8 +22,14 @@ public class InventoryPage : MonoBehaviour
     void Start()
     {
 
-        // Set up this inventory page
+        // EventSystem reference
+        if (eventSystem == null)
+        {
+            Debug.LogWarning("Inventory Class is missing a reference to the Event System that manages it.");
+            return;
+        }
 
+        // Set up this inventory page
         inventorySlots = new InventorySlot[rows, columns];
         Transform slots = transform.GetChild(0);
 
@@ -77,8 +85,9 @@ public class InventoryPage : MonoBehaviour
     }
 
 
+
     /// <summary>
-    /// Return the 2d array of inventory slots that this page has
+    /// Return the 2d array of inventory slots that this page has.
     /// </summary>
     /// <returns></returns>
     public InventorySlot[,] GetInventorySlots()
@@ -87,7 +96,13 @@ public class InventoryPage : MonoBehaviour
     }
 
 
-
+    /// <summary>
+    /// Create a new ItemUI for the given item, and place it at the given row
+    /// and column.
+    /// </summary>
+    /// <param name="item"></param>
+    /// <param name="startRow"></param>
+    /// <param name="startCol"></param>
     public void CreateItemUI(Item item, int startRow, int startCol)
     {
         // Create the new prefab
@@ -96,13 +111,12 @@ public class InventoryPage : MonoBehaviour
         // Add the sprites to the component
         ItemUI component = newUI.GetComponent<ItemUI>();
 
+        // Assign its item
+        component.SetItem(item);
+
         // Find its size and position
-
         float y = (float) 20 + (startRow * 50) + (startRow * 10);
-        //float x = (float)(45 + (startRow * 60));
         float x = (float) 20 + (startCol * 50) + (startCol * 10);
-        //float y = (float)(45 + (startCol * 60)) * -1;
-
         float width = (float) (50 * item.itemWidth) + (10 * (item.itemWidth - 1));
         float height = (float) (50 * item.itemHeight) + (10 * (item.itemHeight - 1));
 
