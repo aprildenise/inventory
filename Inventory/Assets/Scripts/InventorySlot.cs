@@ -7,11 +7,12 @@ public class InventorySlot : MonoBehaviour
 {
 
     // References
-    private InventoryPage parent;
+    private InventoryPage parentPage; // Inventory Page where this slot belongs to
+    private ItemUI parentItemUI; // ItemUI that is current occupying this slot
 
     // Variables
     private bool isOccupied;
-    private Item item;
+    //private Item item;
 
     private void Start()
     {
@@ -22,27 +23,39 @@ public class InventorySlot : MonoBehaviour
     }
 
 
+    public void SetParentItemUI(ItemUI ui)
+    {
+        parentItemUI = ui;
+    }
+
+
+    public ItemUI GetParentItemUI()
+    {
+        return parentItemUI;
+    }
+
+
     public void SetParentPage(InventoryPage page)
     {
-        parent = page;
+        parentPage = page;
     }
 
 
     public InventoryPage GetParentPage()
     {
-        if (parent == null)
+        if (parentPage == null)
         {
             Debug.LogWarning(gameObject.name + " is missing a reference to the page it belongs to.");
         }
-        return parent;
+        return parentPage;
     }
 
 
-    public void SetItem(Item item)
-    {
-        this.item = item;
-        isOccupied = true;
-    }
+    //public void SetItem(Item item)
+    //{
+    //    this.item = item;
+    //    isOccupied = true;
+    //}
 
 
 

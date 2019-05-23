@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7ca05a8bf92867d4d9d7a137672c35e9, type: 3}
-  m_Name: testItem
+  m_Name: Lovely Stick
   m_EditorClassIdentifier: 
   itemName: Lovely stick
   itemSprite: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
   itemSpriteAlt: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
-  itemDescription: Wow. It's quite lovely.
+  itemDescription: A romantic stick with a little more charm.
   itemWidth: 2
   itemHeight: 3
   itemQuantity: 1

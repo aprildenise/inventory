@@ -2,19 +2,26 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
+using TMPro;
 
-public class ItemUI : MonoBehaviour
+public class ItemUI : MonoBehaviour, ISelectHandler
 {
 
 
     // References
-    private Image backgroundImage;
+    private Image backgroundImage; // May not be needed
     private Image itemImage;
     private RectTransform rt;
+    public EventSystem eventSystem;
+
+    public TextMeshProUGUI descriptionBox; // May not be needed
+    public TextMeshProUGUI nameBox;
 
     // Variables
-    public Item item; // change to private when done debugging
+    private Item item; // change to private when done debugging
     private InventorySlot topLeftSlot;
+    //private bool interactionsDisplayed;
 
     // Setups
     private void Awake()
@@ -36,16 +43,40 @@ public class ItemUI : MonoBehaviour
         // Get RectTransform
         rt = gameObject.GetComponent<RectTransform>();
 
+        // Get interactions 
+        //interactions = gameObject.transform.GetChild(1);
+
         Debug.Log("Succesfully Init ItemUI");
     }
 
 
-    public void SetItem(Item newItem)
+    public void HoldItem()
     {
-        item = newItem;
+        // If the player is holding the item, follow references back to the
+        // inventory page in case the player wants to move the UI to another
+        // slot in the inventory.
+        InventoryPage page = topLeftSlot.GetParentPage();
+        page.MoveUI(gameObject.GetComponent<ItemUI>());
+
     }
 
 
+    /// <summary>
+    /// Set which item is in this item UI. Also make sure the UI shows the correct sprite.
+    /// </summary>
+    /// <param name="newItem"></param>
+    public void SetItem(Item newItem)
+    {
+        item = newItem;
+        itemImage.sprite = newItem.itemSprite;
+    }
+
+
+
+    /// <summary>
+    /// Get the item description from the item represented by the ui
+    /// </summary>
+    /// <returns></returns>
     public string GetItemDescription()
     {
         if (item == null)
@@ -59,36 +90,49 @@ public class ItemUI : MonoBehaviour
         }
     }
 
-    public void SetItemImage(Sprite image)
-    {
-        itemImage.sprite = image;
-    }
 
 
+    /// <summary>
+    /// Set the overall size of this UI.
+    /// </summary>
+    /// <param name="width"></param>
+    /// <param name="height"></param>
     public void SetUISize(float width, float height)
     {
-        //Debug.Log("sizeDelta:" + rt.sizeDelta);
         rt.sizeDelta = new Vector2(width, height);
     }
 
 
+
+    /// <summary>
+    /// Set the position of this UI.
+    /// </summary>
+    /// <param name="x"></param>
+    /// <param name="y"></param>
     public void SetPosition(float x, float y)
     {
         
-        //Debug.Log("before:" + rt.anchoredPosition);
         rt.anchoredPosition = new Vector2(x, y * -1);
-        //rt.pivot = new Vector2(0, 1);
-        //Debug.Log("after:" + rt.anchoredPosition);
         
     }
 
 
+
+    /// <summary>
+    /// Set the top left slot, which is the slot that is in the top left corner of this UI.
+    /// </summary>
+    /// <param name="newSlot"></param>
     public void SetTopLeftSlot(InventorySlot newSlot)
     {
         topLeftSlot = newSlot;
     }
 
 
+
+    /// <summary>
+    /// Get the top left slot of this UI.
+    /// </summary>
+    /// <returns></returns>
     public InventorySlot GetTopLeftSlot()
     {
         if (topLeftSlot == null)
@@ -104,9 +148,26 @@ public class ItemUI : MonoBehaviour
     }
 
 
-    // Update is called once per frame
-    void Update()
+
+    /// <summary>
+    /// Use the event system and choose what is selected by it. Used for UI navigation
+    /// </summary>
+    /// <param name="selected"></param>
+    public void SetSelectedObject(GameObject selected)
     {
-        
+        eventSystem.SetSelectedGameObject(selected);
+    }
+
+
+    /// <summary>
+    /// Called whenever the event selects this gameObject
+    /// </summary>
+    /// <param name="eventData"></param>
+    public void OnSelect(BaseEventData eventData)
+    {
+        //Debug.Log("descriptionbox:" + descriptionBox);
+        //Debug.Log("item description:" + item.itemDescription);
+        nameBox.text = item.itemName;
+        descriptionBox.text = item.itemDescription;
     }
 }

@@ -10,20 +10,21 @@ public class Inventory : MonoBehaviour
     // References
     [SerializeField] private GameObject UI;
     private List<InventoryPage> inventoryPages;
-    [SerializeField] private TextMeshProUGUI descriptionBox;
-    [SerializeField] private EventSystem eventSystem;
 
-    private InventoryPage currentPage;
+    [SerializeField] public TextMeshProUGUI descriptionBox; // May not need to be here
+    public TextMeshProUGUI nameBox;
+    [SerializeField] private EventSystem eventSystem;
 
 
     // Variables
     private List<Item> inventory;
     private int totalItems;
     private bool isUIActive;
+    private InventoryPage currentPage;
 
 
 
-    private void Awake()
+    private void Start()
     {
         // Setups
         inventory = new List<Item>();
@@ -67,6 +68,7 @@ public class Inventory : MonoBehaviour
             return;
         }
 
+
         // Get all the Pages
         int numPages = inven.childCount;
         inventoryPages = new List<InventoryPage>();
@@ -81,11 +83,22 @@ public class Inventory : MonoBehaviour
             }
             // Add the pages to the inventoryPages list
             inventoryPages.Add(inventoryPageComp);
+
+            // Make sure the page has its passed down references
+            inventoryPageComp.eventSystem = eventSystem;
+            inventoryPageComp.descriptionBox = descriptionBox;
+            inventoryPageComp.nameBox = nameBox;
         }
 
-        // Make sure to hide the inventory when done.
+
+        // Set the first page as the current page
+        currentPage = inventoryPages[0];
+
+
+        // Make sure to hide the inventory when done
         HideInventory();
 
+        // Done!
         Debug.Log("Successfully Init Inventory");
 
     }
@@ -94,12 +107,24 @@ public class Inventory : MonoBehaviour
     private void Update()
     {
         // Update the text in the description box
-        GameObject current = eventSystem.currentSelectedGameObject;
-        if (current != null && isUIActive)
-        {
-            descriptionBox.text = current.GetComponent<ItemUI>().GetItemDescription();
-        }
-        
+        //if (isUIActive)
+        //{
+        //    GameObject current = eventSystem.currentSelectedGameObject;
+        //    if (current != null)
+        //    {
+        //        ItemUI ui = current.GetComponent<ItemUI>();
+        //        if (ui == null)
+        //        {
+        //            Debug.LogWarning("EventSystem's currently selected object, " + current.name + " does not have an ItemUI.");
+        //            return;
+        //        }
+        //        else
+        //        {
+        //            descriptionBox.text = ui.item.itemDescription;
+        //            return;
+        //        }
+        //    }
+        //}
     }
 
 
@@ -109,6 +134,7 @@ public class Inventory : MonoBehaviour
     public void DisplayInventory()
     {
         UI.GetComponent<Canvas>().enabled = true;
+        currentPage.DisplayPage();
         isUIActive = true;
 
     }
@@ -120,6 +146,7 @@ public class Inventory : MonoBehaviour
     public void HideInventory()
     { 
         UI.GetComponent<Canvas>().enabled = false;
+        currentPage.HidePage();
         isUIActive = false;
 
     }
@@ -130,7 +157,7 @@ public class Inventory : MonoBehaviour
     /// it can fit, and then adding it to the slot using AddItemToSlot
     /// </summary>
     /// <param name="itemObject"></param>
-    public void AddNewItemToInventory(GameObject itemObject)
+    public void AddItemToInventory(GameObject itemObject)
     {
         // Get the item property from the given item GameObject
         PickupItem pickUpItem = itemObject.GetComponent<PickupItem>();
@@ -145,34 +172,24 @@ public class Inventory : MonoBehaviour
         inventory.Add(item);
         totalItems++;
 
-
         // Add the item to the inventory UI
-        //Find where we can first place the item based on its dimensions
-        int width = item.itemWidth;
-        int height = item.itemHeight;
+        int slotsToUse = item.itemWidth * item.itemHeight;
 
-
-        //Check which page to use
+        // Find where we can first place the item based on its dimensions
+        // Check which page to use
         foreach (InventoryPage inventoryPage in inventoryPages)
         {
-            InventorySlot[,] inventorySlots = inventoryPage.GetInventorySlots();
-            int rows = inventorySlots.GetLength(0);
-            int columns = inventorySlots.GetLength(1);
-
-            for (int i = 0; i < rows; i++)
+            // Find which page we can first place the item by checking which page has the correct number of
+            // slots left
+            int slotsLeft = (inventoryPage.rows * inventoryPage.columns) - inventoryPage.GetSlotsUsed();
+            if (slotsLeft < slotsToUse)
             {
-                for (int j = 0; j < columns; j++)
-                {
-                    // Check if we can place the item starting at this slot
-                    if (CheckInventorySlot(i, j, inventorySlots, width, height))
-                    {
-                        // Place the item here
-                        Debug.Log("Chosen index is:" + i + "," + j);
-                        AddItemToSlot(inventorySlots, item, i, j);
-                        return;
-                    }
-                }
+                // Can't use this page, look at the next one
+                continue;
             }
+
+            // Can use this page
+            inventoryPage.AddItemToPage(item);
         }
 
         // No pages were found, create a new page
@@ -182,83 +199,83 @@ public class Inventory : MonoBehaviour
 
 
 
-    /// <summary>
-    /// Add an item to a designated slot(s) by marking all those slots as occupied and
-    /// creating an ItemUI for its page.
-    /// </summary>
-    /// <param name="inventorySlots"></param>
-    /// <param name="item"></param>
-    /// <param name="startRow"></param>
-    /// <param name="startCol"></param>
-    public void AddItemToSlot(InventorySlot[,] inventorySlots, Item item, int startRow, int startCol)
-    {
-        // Add the item to the slot
-        InventorySlot topLeft = inventorySlots[startRow, startCol];
+    ///// <summary>
+    ///// Add an item to a designated slot(s) by marking all those slots as occupied and
+    ///// creating an ItemUI for its page.
+    ///// </summary>
+    ///// <param name="inventorySlots"></param>
+    ///// <param name="item"></param>
+    ///// <param name="startRow"></param>
+    ///// <param name="startCol"></param>
+    //public void AddItemToSlot(InventorySlot[,] inventorySlots, Item item, int startRow, int startCol)
+    //{
+    //    // Add the item to the slot
+    //    InventorySlot topLeft = inventorySlots[startRow, startCol];
 
-        // Find all slots that this item will occupy
-        // and set them
-        for (int i = 0; i < item.itemHeight; i++)
-        {
-            for (int j = 0; j < item.itemWidth; j++)
-            {
-                // debug
-                //int temp = startRow + i;
-                //int t = startCol + j;
-                //Debug.Log("is set to occupied:" + temp + "," + t);
+    //    // Find all slots that this item will occupy
+    //    // and set them
+    //    for (int i = 0; i < item.itemHeight; i++)
+    //    {
+    //        for (int j = 0; j < item.itemWidth; j++)
+    //        {
+    //            // debug
+    //            //int temp = startRow + i;
+    //            //int t = startCol + j;
+    //            //Debug.Log("is set to occupied:" + temp + "," + t);
 
-                // get a slot in the designated area
-                InventorySlot slot = inventorySlots[startRow + i, startCol + j];
-                slot.SetOccupancy(true);
-                slot.SetItem(item);
-            }
-        }
+    //            // get a slot in the designated area
+    //            InventorySlot slot = inventorySlots[startRow + i, startCol + j];
+    //            slot.SetOccupancy(true);
+    //            slot.SetItem(item);
+    //        }
+    //    }
 
-        // Create an itemUI in the page
-        topLeft.GetParentPage().CreateItemUI(item, startRow, startCol);
-
-
-    }
+    //    // Create an itemUI in the page
+    //    topLeft.GetParentPage().CreateItemUI(item, startRow, startCol);
 
 
+    //}
 
-    /// <summary>
-    /// Check if we can place an item in a specific slot/group of slots in the inventory. If
-    /// there is any item in the designated area, then an item cannot be placed there at all
-    /// </summary>
-    /// <param name="startRow"></param>
-    /// <param name="startCol"></param>
-    /// <param name="inventorySlots"></param>
-    /// <param name="width"></param>
-    /// <param name="height"></param>
-    /// <returns></returns>
-    private bool CheckInventorySlot(int startRow, int startCol, InventorySlot[,] inventorySlots, int width, int height)
-    {
 
-        // Find all the slots that will be occupied by the item
-        // if it's top left index was at [row,column] (if 
-        // it was placed here)
-        for (int i = 0; i < height; i++)
-        {
-            for (int j = 0; j < width; j++)
-            {
-                InventorySlot slot = inventorySlots[startRow + i, startCol + j];
-                // Check if the slot is occupied
-                if (slot.GetOccupancy() == true)
-                {
-                    // Item cannot be placed here
 
-                    //debug
-                    //int temp = startRow + i;
-                    //int t = startCol + j;
-                    //Debug.Log("item cannot be placed at:" + startRow + "," + startCol);
+    ///// <summary>
+    ///// Check if we can place an item in a specific slot/group of slots in the inventory. If
+    ///// there is any item in the designated area, then an item cannot be placed there at all
+    ///// </summary>
+    ///// <param name="startRow"></param>
+    ///// <param name="startCol"></param>
+    ///// <param name="inventorySlots"></param>
+    ///// <param name="width"></param>
+    ///// <param name="height"></param>
+    ///// <returns></returns>
+    //private bool CheckInventorySlot(int startRow, int startCol, InventorySlot[,] inventorySlots, int width, int height)
+    //{
 
-                    return false;
-                }
-            }
-        }
-        // Item can be placed here
-        return true;
-    }
+    //    // Find all the slots that will be occupied by the item
+    //    // if it's top left index was at [row,column] (if 
+    //    // it was placed here)
+    //    for (int i = 0; i < height; i++)
+    //    {
+    //        for (int j = 0; j < width; j++)
+    //        {
+    //            InventorySlot slot = inventorySlots[startRow + i, startCol + j];
+    //            // Check if the slot is occupied
+    //            if (slot.GetOccupancy() == true)
+    //            {
+    //                // Item cannot be placed here
+
+    //                //debug
+    //                //int temp = startRow + i;
+    //                //int t = startCol + j;
+    //                //Debug.Log("item cannot be placed at:" + startRow + "," + startCol);
+
+    //                return false;
+    //            }
+    //        }
+    //    }
+    //    // Item can be placed here
+    //    return true;
+    //}
 
 
 
