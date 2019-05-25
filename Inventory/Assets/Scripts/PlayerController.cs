@@ -135,6 +135,11 @@ public class PlayerController : MonoBehaviour
     }
 
 
+
+    /// <summary>
+    /// Have the player place the item in their inventory
+    /// </summary>
+    /// <param name="item"></param>
     private void BagItem(GameObject item)
     {
         inventoryManager.AddItemToInventory(item);
@@ -143,6 +148,9 @@ public class PlayerController : MonoBehaviour
 
 
 
+    /// <summary>
+    /// Have the player hold an item
+    /// </summary>
     private void HoldItem()
     {
         PickupItem item = currentInteraction.GetComponent<PickupItem>();
@@ -153,6 +161,9 @@ public class PlayerController : MonoBehaviour
     }
 
 
+    /// <summary>
+    /// Have the player thrown an item that they are holding
+    /// </summary>
     private void ThrowItem()
     {
         heldItem = null;
@@ -172,7 +183,10 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    // Check if the player is close enough to interact with something
+    /// <summary>
+    /// Use event trigger in order to check what the player has collided with
+    /// </summary>
+    /// <param name="collision"></param>
     private void OnTriggerEnter2D(Collider2D collision)
     {
         Debug.Log("Player collided with " + collision.name);
@@ -186,7 +200,10 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    // Check if the player has left whatever they are interacting with
+    /// <summary>
+    /// Use even trigger in order to check what the player has left the collider with
+    /// </summary>
+    /// <param name="collision"></param>
     private void OnTriggerExit2D(Collider2D collision)
     {
         // Check if the current thing that the player collided with is an interactable

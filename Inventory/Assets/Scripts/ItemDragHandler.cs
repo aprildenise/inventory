@@ -3,17 +3,28 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class ItemDragHandler : MonoBehaviour, IDragHandler, IEndDragHandler
+public class ItemDragHandler : MonoBehaviour, IMoveHandler
 {
 
+    RectTransform rt;
+    ItemUI itemUI;
 
-    public void OnDrag(PointerEventData eventData)
+
+    private void Awake()
     {
-        transform.position = Input.mousePosition;
+        Transform parent = gameObject.transform.parent;
+        rt = parent.GetComponent<RectTransform>();
+        itemUI = parent.gameObject.GetComponent<ItemUI>();
     }
 
-    public void OnEndDrag(PointerEventData eventData)
+
+    public void OnMove(AxisEventData eventData)
     {
-        transform.localPosition = Vector3.zero;
+        Debug.Log("moving ui....:" + eventData.moveVector);
+
+        itemUI.MoveUI(eventData.moveVector);
+
+
+        // Move the UI based on the given movement
     }
 }

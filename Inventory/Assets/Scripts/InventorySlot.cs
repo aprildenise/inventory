@@ -12,14 +12,27 @@ public class InventorySlot : MonoBehaviour
 
     // Variables
     private bool isOccupied;
+    private Vector2 index; // Index of this slot in the InventoryPage's inventorySlots grid
     //private Item item;
 
-    private void Start()
+    private void Awake()
     {
         // Setups
         isOccupied = false;
 
-        Debug.Log("Successfully Init Inventory Slot");
+        //Debug.Log("Successfully Init Inventory Slot");
+    }
+
+
+    public void SetIndex(int row, int col)
+    { 
+        index = new Vector2(col, row);
+    }
+
+
+    public Vector2 GetIndex()
+    {
+        return index;
     }
 
 

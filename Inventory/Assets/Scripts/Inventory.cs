@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
 using UnityEngine.EventSystems;
 
 public class Inventory : MonoBehaviour
@@ -9,16 +8,20 @@ public class Inventory : MonoBehaviour
 
     // References
     [SerializeField] private GameObject UI;
-    private List<InventoryPage> inventoryPages;
-
-    [SerializeField] public TextMeshProUGUI descriptionBox; // May not need to be here
-    public TextMeshProUGUI nameBox;
+    [SerializeField] InventoryTextHandler inventoryText;
     [SerializeField] private EventSystem eventSystem;
+    private Transform inventoryPagesParent;
+    private GameObject leftNavButton;
+    private GameObject rightNavButton;
+
+    private List<InventoryPage> inventoryPages;
+    private GameObject pagePrefab;
 
 
     // Variables
     private List<Item> inventory;
-    private int totalItems;
+    private int totalPages;
+    private int totalItems; // May not be needed
     private bool isUIActive;
     private InventoryPage currentPage;
 
@@ -35,12 +38,13 @@ public class Inventory : MonoBehaviour
         if (UI == null)
         {
             Debug.LogWarning("Inventory Class is missing a reference to the inventory UI.");
+            return;
         }
 
-        // TMP reference 
-        if (descriptionBox == null)
+        // inventory text reference
+        if (inventoryText == null)
         {
-            Debug.LogWarning("Inventory Class is missing a reference to the description box.");
+            Debug.LogWarning("Inventory Class is missing a reference to the Inventory Text Handler");
             return;
         }
 
@@ -61,6 +65,18 @@ public class Inventory : MonoBehaviour
             Debug.LogWarning("Inventory Class cannot find the Main Area.", menu);
             return;
         }
+
+        // Get references to the navigation buttons
+        Transform c = menu.transform.GetChild(2);
+        leftNavButton = c.gameObject;
+        c = menu.transform.GetChild(3);
+        rightNavButton = c.gameObject;
+        // Make sure to turn them off
+        leftNavButton.SetActive(false);
+        rightNavButton.SetActive(false);
+
+
+        // Get the reference to the inventory
         Transform inven = menu.transform.Find("Inventory");
         if (inven == null)
         {
@@ -69,8 +85,9 @@ public class Inventory : MonoBehaviour
         }
 
 
-        // Get all the Pages
+        // Get all the Pages that currently exist
         int numPages = inven.childCount;
+        inventoryPagesParent = inven;
         inventoryPages = new List<InventoryPage>();
         for (int i = 0; i < numPages; i++)
         {
@@ -85,14 +102,29 @@ public class Inventory : MonoBehaviour
             inventoryPages.Add(inventoryPageComp);
 
             // Make sure the page has its passed down references
+            inventoryPageComp.SetPageIndex(i);
             inventoryPageComp.eventSystem = eventSystem;
-            inventoryPageComp.descriptionBox = descriptionBox;
-            inventoryPageComp.nameBox = nameBox;
+            inventoryPageComp.inventoryText = inventoryText;
+
+            totalPages++;
         }
 
 
         // Set the first page as the current page
         currentPage = inventoryPages[0];
+        inventoryText.SetPageNumber(0, totalPages);
+
+        // See if we need to display the buttons
+        if (totalPages > 1)
+        {
+            rightNavButton.SetActive(true);
+        }
+
+        // Get the reference to the page prefab
+        pagePrefab = Resources.Load<GameObject>("Prefabs/InventoryPage");
+
+
+        
 
 
         // Make sure to hide the inventory when done
@@ -104,27 +136,64 @@ public class Inventory : MonoBehaviour
     }
 
 
-    private void Update()
+
+    public void NavigatePageLeft()
     {
-        // Update the text in the description box
-        //if (isUIActive)
-        //{
-        //    GameObject current = eventSystem.currentSelectedGameObject;
-        //    if (current != null)
-        //    {
-        //        ItemUI ui = current.GetComponent<ItemUI>();
-        //        if (ui == null)
-        //        {
-        //            Debug.LogWarning("EventSystem's currently selected object, " + current.name + " does not have an ItemUI.");
-        //            return;
-        //        }
-        //        else
-        //        {
-        //            descriptionBox.text = ui.item.itemDescription;
-        //            return;
-        //        }
-        //    }
-        //}
+        // Get the current page
+        int current = currentPage.GetPageIndex();
+
+        // Hide that page
+        currentPage.HidePage();
+        Debug.Log(currentPage.name);
+
+        // Display the next page
+        InventoryPage nextPage = inventoryPages[current - 1];
+        nextPage.DisplayPage();
+        currentPage = nextPage;
+
+        // Check if need to show this button again (if there's another page to the right)
+        if (nextPage.GetPageIndex() == 0)
+        {
+            // Hide the button
+            leftNavButton.SetActive(false);
+        }
+
+        // Show the right
+        rightNavButton.SetActive(true);
+
+        // Show the page number
+        inventoryText.SetPageNumber(current - 1, totalPages);
+    }
+
+
+    public void NavigatePageRight()
+    {
+        // Get the current page
+        int current = currentPage.GetPageIndex();
+
+        // Hide that page
+        currentPage.HidePage();
+        Debug.Log(currentPage.name);
+
+        // Display the next page
+        InventoryPage nextPage = inventoryPages[current + 1];
+        nextPage.DisplayPage();
+        currentPage = nextPage;
+
+        // Check if need to show this button again (if there's another page to the right)
+        if (totalPages - 1 == nextPage.GetPageIndex())
+        {
+            // Hide the button
+            rightNavButton.SetActive(false);
+        }
+
+        // Show the left button 
+        leftNavButton.SetActive(true);
+
+        // Set the text
+        inventoryText.SetPageNumber(current + 1, totalPages);
+
+
     }
 
 
@@ -148,6 +217,47 @@ public class Inventory : MonoBehaviour
         UI.GetComponent<Canvas>().enabled = false;
         currentPage.HidePage();
         isUIActive = false;
+
+    }
+
+
+
+    private InventoryPage CreatePage()
+    {
+        // Instantiate a new Page object
+        GameObject newPage = (GameObject)Instantiate(pagePrefab, inventoryPagesParent);
+
+        // Make sure its the parent of the Inventory
+        //newPage.transform.SetParent(inventoryPagesParent, false);
+
+        // Define all its needed references
+        InventoryPage inventoryPage = newPage.GetComponent<InventoryPage>();
+        //totalPages++;
+        int pageNum = totalPages;
+        inventoryPage.SetPageIndex(pageNum);
+        inventoryPage.eventSystem = eventSystem;
+        inventoryPage.inventoryText = inventoryText;
+
+        // add the the list
+        inventoryPages.Insert(pageNum, inventoryPage);
+
+        // Hide the page from the player
+        inventoryPage.HidePage();
+
+        // Show the navigation buttons depending on the current page number
+        if (currentPage.GetPageIndex() < inventoryPage.GetPageIndex())
+        {
+            // Show the right button
+            rightNavButton.SetActive(true);
+        }
+        if (inventoryPage.GetPageIndex() < currentPage.GetPageIndex())
+        {
+            // Show the left button
+            leftNavButton.SetActive(true);
+        }
+
+        totalPages++;
+        return inventoryPage;
 
     }
 
@@ -182,100 +292,32 @@ public class Inventory : MonoBehaviour
             // Find which page we can first place the item by checking which page has the correct number of
             // slots left
             int slotsLeft = (inventoryPage.rows * inventoryPage.columns) - inventoryPage.GetSlotsUsed();
+            //Debug.Log("slotsleft:" + slotsLeft);
             if (slotsLeft < slotsToUse)
             {
                 // Can't use this page, look at the next one
                 continue;
             }
-
-            // Can use this page
-            inventoryPage.AddItemToPage(item);
+            else
+            {
+                // Attempt to place at this page
+                bool hasAdded = inventoryPage.AddItemToPage(item);
+                if (hasAdded)
+                {
+                    return;
+                }
+                
+            }
         }
 
-        // No pages were found, create a new page
+        // No pages were found, create a new page and place the item there
+        InventoryPage newPage = CreatePage();
+        newPage.AddItemToPage(item);
 
-        totalItems++;
+        // Done!
     }
 
 
-
-    ///// <summary>
-    ///// Add an item to a designated slot(s) by marking all those slots as occupied and
-    ///// creating an ItemUI for its page.
-    ///// </summary>
-    ///// <param name="inventorySlots"></param>
-    ///// <param name="item"></param>
-    ///// <param name="startRow"></param>
-    ///// <param name="startCol"></param>
-    //public void AddItemToSlot(InventorySlot[,] inventorySlots, Item item, int startRow, int startCol)
-    //{
-    //    // Add the item to the slot
-    //    InventorySlot topLeft = inventorySlots[startRow, startCol];
-
-    //    // Find all slots that this item will occupy
-    //    // and set them
-    //    for (int i = 0; i < item.itemHeight; i++)
-    //    {
-    //        for (int j = 0; j < item.itemWidth; j++)
-    //        {
-    //            // debug
-    //            //int temp = startRow + i;
-    //            //int t = startCol + j;
-    //            //Debug.Log("is set to occupied:" + temp + "," + t);
-
-    //            // get a slot in the designated area
-    //            InventorySlot slot = inventorySlots[startRow + i, startCol + j];
-    //            slot.SetOccupancy(true);
-    //            slot.SetItem(item);
-    //        }
-    //    }
-
-    //    // Create an itemUI in the page
-    //    topLeft.GetParentPage().CreateItemUI(item, startRow, startCol);
-
-
-    //}
-
-
-
-    ///// <summary>
-    ///// Check if we can place an item in a specific slot/group of slots in the inventory. If
-    ///// there is any item in the designated area, then an item cannot be placed there at all
-    ///// </summary>
-    ///// <param name="startRow"></param>
-    ///// <param name="startCol"></param>
-    ///// <param name="inventorySlots"></param>
-    ///// <param name="width"></param>
-    ///// <param name="height"></param>
-    ///// <returns></returns>
-    //private bool CheckInventorySlot(int startRow, int startCol, InventorySlot[,] inventorySlots, int width, int height)
-    //{
-
-    //    // Find all the slots that will be occupied by the item
-    //    // if it's top left index was at [row,column] (if 
-    //    // it was placed here)
-    //    for (int i = 0; i < height; i++)
-    //    {
-    //        for (int j = 0; j < width; j++)
-    //        {
-    //            InventorySlot slot = inventorySlots[startRow + i, startCol + j];
-    //            // Check if the slot is occupied
-    //            if (slot.GetOccupancy() == true)
-    //            {
-    //                // Item cannot be placed here
-
-    //                //debug
-    //                //int temp = startRow + i;
-    //                //int t = startCol + j;
-    //                //Debug.Log("item cannot be placed at:" + startRow + "," + startCol);
-
-    //                return false;
-    //            }
-    //        }
-    //    }
-    //    // Item can be placed here
-    //    return true;
-    //}
 
 
 

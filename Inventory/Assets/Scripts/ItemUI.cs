@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
-using TMPro;
-
 public class ItemUI : MonoBehaviour, ISelectHandler
 {
 
@@ -14,14 +12,13 @@ public class ItemUI : MonoBehaviour, ISelectHandler
     private Image itemImage;
     private RectTransform rt;
     public EventSystem eventSystem;
-
-    public TextMeshProUGUI descriptionBox; // May not be needed
-    public TextMeshProUGUI nameBox;
+    public InventoryTextHandler inventoryText;
 
     // Variables
     private Item item; // change to private when done debugging
     private InventorySlot topLeftSlot;
     //private bool interactionsDisplayed;
+    //private bool isHolding;
 
     // Setups
     private void Awake()
@@ -50,14 +47,43 @@ public class ItemUI : MonoBehaviour, ISelectHandler
     }
 
 
+
     public void HoldItem()
     {
         // If the player is holding the item, follow references back to the
         // inventory page in case the player wants to move the UI to another
         // slot in the inventory.
-        InventoryPage page = topLeftSlot.GetParentPage();
-        page.MoveUI(gameObject.GetComponent<ItemUI>());
+        // isHolding = true;
 
+
+        //InventoryPage page = topLeftSlot.GetParentPage();
+        //page.SetUIIsMiving(gameObject.GetComponent<ItemUI>());
+
+    }
+
+
+    public void PlaceItemUI()
+    {
+        Debug.Log("held interaction button is pressed....!");
+        // Get a reference to the inventory page in order to see if we can place the ui here
+        InventoryPage page = topLeftSlot.GetParentPage();
+
+        bool isPlaced = page.PlaceItemUI(gameObject.gameObject.GetComponent<ItemUI>(), GetPosition());
+        if (isPlaced)
+        {
+            // Successfully placed. Turn off the itemDragHandler and its button and reset
+            // what is selected by the event system
+            eventSystem.SetSelectedGameObject(this.gameObject);
+
+            //Turn off the shadow for effect
+            Shadow shadow = gameObject.GetComponent<Shadow>();
+            shadow.enabled = false;
+        }
+        else
+        {
+            // Item cannot be placed here. Do not turn off the itemDragHandler yet. 
+            // Display that the item cannot be placed at this spot
+        }
     }
 
 
@@ -69,6 +95,12 @@ public class ItemUI : MonoBehaviour, ISelectHandler
     {
         item = newItem;
         itemImage.sprite = newItem.itemSprite;
+    }
+
+
+    public Item GetItem()
+    {
+        return item;
     }
 
 
@@ -111,10 +143,73 @@ public class ItemUI : MonoBehaviour, ISelectHandler
     /// <param name="y"></param>
     public void SetPosition(float x, float y)
     {
-        
-        rt.anchoredPosition = new Vector2(x, y * -1);
+
+        rt.anchoredPosition = new Vector2(x, y);
         
     }
+
+
+    public Vector2 GetPosition()
+    {
+        return rt.anchoredPosition;
+    }
+
+
+
+    public void MoveUI(Vector2 moveInput)
+    {
+
+        float x = moveInput.x * 60;
+        float y = moveInput.y * 60;
+
+        Vector2 shift = new Vector2(x, y);
+        Vector2 currentPos = GetPosition();
+
+        Vector2 newPos = currentPos + shift;
+        Debug.Log("currentpos:" + currentPos);
+        Debug.Log("newpos:" + newPos);
+
+        // Make sure it doesn't go over the page
+        // Prevent the UI from moving too far
+        if (newPos.x < 20f || newPos.x > 440f)
+        {
+            // don't shift the x position
+            newPos.x = currentPos.x;
+        }
+        if (newPos.y > -2f || newPos.y < -500f)
+        {
+            // don't shift the y position
+            newPos.y = currentPos.y;
+        }
+
+        // Set new position
+        SetPosition(newPos.x, newPos.y);
+
+        // Shift to a new page if needed
+    }
+
+
+    //public void ShiftPosition(float x, float y)
+    //{
+    //    Vector2 shift = new Vector2(x, y);
+    //    Vector2 newPos = rt.anchoredPosition + shift;
+
+    //    // Prevent the UI from moving too far
+    //    if (newPos.x < 20f || newPos.x > 440f)
+    //    {
+    //        // don't shift the x position
+    //        newPos.x = rt.anchoredPosition.x;
+    //    }
+    //    if (newPos.y > -2f || newPos.y < -500f)
+    //    {
+    //        // don't shift the y position
+    //        newPos.y = rt.anchoredPosition.y;
+    //    }
+
+    //    // Assign the new postition
+    //    rt.anchoredPosition = newPos;
+
+    //}
 
 
 
@@ -159,15 +254,15 @@ public class ItemUI : MonoBehaviour, ISelectHandler
     }
 
 
+
     /// <summary>
     /// Called whenever the event selects this gameObject
     /// </summary>
     /// <param name="eventData"></param>
     public void OnSelect(BaseEventData eventData)
     {
-        //Debug.Log("descriptionbox:" + descriptionBox);
-        //Debug.Log("item description:" + item.itemDescription);
-        nameBox.text = item.itemName;
-        descriptionBox.text = item.itemDescription;
+        inventoryText.SetItemName(item.itemName);
+        inventoryText.SetItemDescription(item.itemDescription);
     }
+
 }
