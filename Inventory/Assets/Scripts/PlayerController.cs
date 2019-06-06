@@ -58,14 +58,26 @@ public class PlayerController : MonoBehaviour
             // Player is already in the inventory screen. Hide the inventory
             if (onMenu)
             {
-                inventoryManager.HideInventory();
-                onMenu = false;
+                bool canHide = inventoryManager.HideInventory();
+                if (canHide)
+                {
+                    onMenu = false;
+                    return;
+                }
+                else
+                {
+                    // Player has not finished interacting with the inventory yet.
+                    onMenu = true;
+                    return;
+                }
+                
             }
             // Player is not on the inventory screen. Display the inventory
             else
             {
                 onMenu = true;
                 inventoryManager.DisplayInventory();
+                return;
             }
         }
 

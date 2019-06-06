@@ -1,0 +1,477 @@
+fileFormatVersion: 2
+guid: ba881808ad035a14eaa3354eebed4db9
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: AprilFront&Torso_0
+    21300002: AprilFront&Torso_1
+    21300004: AprilFront&Torso_2
+    21300006: AprilFront&Torso_3
+    21300008: AprilFront&Torso_4
+    21300010: AprilFront&Torso_5
+    21300012: AprilFront&Torso_6
+    21300014: AprilFront&Torso_7
+    21300016: AprilFront&Torso_8
+    21300018: AprilFront&Torso_9
+    21300020: AprilFront&Torso_10
+    21300022: AprilFront&Torso_11
+    21300024: AprilFront&Torso_12
+    21300026: AprilFront&Torso_13
+    21300028: AprilFront&Torso_14
+    21300030: AprilFront&Torso_15
+    21300032: AprilFront&Torso_16
+    21300034: AprilFront&Torso_17
+  externalObjects: {}
+  serializedVersion: 9
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: -1
+    aniso: -1
+    mipBias: -100
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  platformSettings:
+  - serializedVersion: 2
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  - serializedVersion: 2
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: AprilFront&Torso_0
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 1327
+        width: 796
+        height: 625
+      alignment: 9
+      pivot: {x: 0.5000002, y: 0.04087422}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: db5210f6030500d4498b10d1583f11ae
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AprilFront&Torso_1
+      rect:
+        serializedVersion: 2
+        x: 1304
+        y: 1812
+        width: 139
+        height: 92
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8e4b3dce7cd795f47b5837a255d3ac38
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AprilFront&Torso_2
+      rect:
+        serializedVersion: 2
+        x: 1624
+        y: 1811
+        width: 141
+        height: 93
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0a9645d8cc0d7fc41a9eb6895b313e10
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AprilFront&Torso_3
+      rect:
+        serializedVersion: 2
+        x: 1347
+        y: 1661
+        width: 62
+        height: 84
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ca86e25a445e75548a8f23bc163c0111
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AprilFront&Torso_4
+      rect:
+        serializedVersion: 2
+        x: 1668
+        y: 1655
+        width: 64
+        height: 84
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 700ad0805a54fdf48aa4f504c512a099
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AprilFront&Torso_5
+      rect:
+        serializedVersion: 2
+        x: 1332
+        y: 1465
+        width: 72
+        height: 84
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 499296a439cf3c246853ac9c3df2ac5c
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AprilFront&Torso_6
+      rect:
+        serializedVersion: 2
+        x: 1688
+        y: 1456
+        width: 73
+        height: 88
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 06318e1d738a20749a07182202a03cdf
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AprilFront&Torso_7
+      rect:
+        serializedVersion: 2
+        x: 1320
+        y: 1327
+        width: 57
+        height: 33
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bb9b1fbb98b27864886ae681bd155bf8
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AprilFront&Torso_8
+      rect:
+        serializedVersion: 2
+        x: 104
+        y: 834
+        width: 921
+        height: 403
+      alignment: 9
+      pivot: {x: 0.48913136, y: 0.89741975}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d7595d0a176479d429965950d1dfc4e5
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AprilFront&Torso_9
+      rect:
+        serializedVersion: 2
+        x: 1325
+        y: 1235
+        width: 51
+        height: 17
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7c57ce7b86ad02c468ed5fba8105a8af
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AprilFront&Torso_10
+      rect:
+        serializedVersion: 2
+        x: 197
+        y: 548
+        width: 104
+        height: 137
+      alignment: 9
+      pivot: {x: 0.66041744, y: 0.7922626}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0ad7b97f62991fe4a8e944a79ab2f9ae
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AprilFront&Torso_11
+      rect:
+        serializedVersion: 2
+        x: 414
+        y: 556
+        width: 106
+        height: 136
+      alignment: 9
+      pivot: {x: 0.31113246, y: 0.7944116}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3311e47646bdddd4aa8ddd1fba58f660
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AprilFront&Torso_12
+      rect:
+        serializedVersion: 2
+        x: 841
+        y: 532
+        width: 280
+        height: 181
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d4bda21c9e2c25b499bb187c1ba6cbf0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AprilFront&Torso_13
+      rect:
+        serializedVersion: 2
+        x: 132
+        y: 352
+        width: 144
+        height: 125
+      alignment: 9
+      pivot: {x: 0.63902813, y: 0.82031983}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e0bc59b551fd2484c854494da88248e9
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AprilFront&Torso_14
+      rect:
+        serializedVersion: 2
+        x: 422
+        y: 346
+        width: 142
+        height: 126
+      alignment: 9
+      pivot: {x: 0.31201923, y: 0.8177776}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fb629fe64db1e454a97aaed72d1a976b
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AprilFront&Torso_15
+      rect:
+        serializedVersion: 2
+        x: 771
+        y: 207
+        width: 405
+        height: 233
+      alignment: 9
+      pivot: {x: 0.48352307, y: 0.84369093}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e89c1e3f64ec46d45a8f6afc39e27c8a
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AprilFront&Torso_16
+      rect:
+        serializedVersion: 2
+        x: 1376
+        y: 276
+        width: 129
+        height: 92
+      alignment: 9
+      pivot: {x: 0.7327928, y: 0.68134075}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 79901ba161dbae54ab665e5df8f67cd5
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AprilFront&Torso_17
+      rect:
+        serializedVersion: 2
+        x: 1716
+        y: 272
+        width: 129
+        height: 93
+      alignment: 9
+      pivot: {x: 0.26721, y: 0.715269}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 394344ab1a3b77f47833801462c49f56
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 76fe7373db34a00438aefe033701a424
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
