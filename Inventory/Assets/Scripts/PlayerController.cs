@@ -14,7 +14,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float moveSpeed;
     private float dashSpeed;
     private Vector2 moveVelocity;
-    private Quaternion rotateDirection;
+    private Quaternion rotateDirection; // may not be needed in the future when we actually animate the player character?
 
     // For interaction
     private GameObject currentInteraction;
@@ -119,6 +119,12 @@ public class PlayerController : MonoBehaviour
                     }
                     
                 }
+                // Iteractable is an NPC
+                if (currentInteraction.GetComponent<NPCController>() != null)
+                {
+                    Debug.Log("interacting with an npc");
+                    // Enter dialogue with the NPC
+                }
             }
 
             // Player is holding an item
@@ -158,6 +164,11 @@ public class PlayerController : MonoBehaviour
 
     }
 
+
+    private void EnterDialogue()
+    {
+
+    }
 
 
     /// <summary>

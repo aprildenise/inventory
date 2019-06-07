@@ -122,7 +122,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6017047}
   - component: {fileID: 6017048}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: April Right Foot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -191,6 +191,39 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &73988763
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 73988764}
+  m_Layer: 0
+  m_Name: Directions
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &73988764
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 73988763}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.2, y: 0.2, z: 1}
+  m_Children:
+  - {fileID: 1325420270}
+  - {fileID: 1126819117}
+  - {fileID: 1301180606}
+  m_Father: {fileID: 0}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &74893280
 GameObject:
   m_ObjectHideFlags: 0
@@ -267,7 +300,7 @@ GameObject:
   m_Component:
   - component: {fileID: 98037385}
   - component: {fileID: 98037384}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Torso
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -347,7 +380,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 147657614}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Front
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -382,7 +415,7 @@ GameObject:
   m_Component:
   - component: {fileID: 148802595}
   - component: {fileID: 148802596}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Left Shoulder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -462,7 +495,7 @@ GameObject:
   m_Component:
   - component: {fileID: 169800977}
   - component: {fileID: 169800976}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Right Eyebrow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -851,7 +884,7 @@ GameObject:
   m_Component:
   - component: {fileID: 333257281}
   - component: {fileID: 333257280}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Torso
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -932,7 +965,7 @@ GameObject:
   m_Component:
   - component: {fileID: 370100136}
   - component: {fileID: 370100135}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1013,7 +1046,7 @@ GameObject:
   m_Component:
   - component: {fileID: 378465469}
   - component: {fileID: 378465470}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Right Forearm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1194,7 +1227,7 @@ GameObject:
   m_Component:
   - component: {fileID: 475480561}
   - component: {fileID: 475480562}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Far Leg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1475,7 +1508,7 @@ GameObject:
   m_Component:
   - component: {fileID: 548108298}
   - component: {fileID: 548108299}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Close Leg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1554,7 +1587,7 @@ GameObject:
   m_Component:
   - component: {fileID: 561923240}
   - component: {fileID: 561923239}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Eyebrow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1680,7 +1713,7 @@ GameObject:
   m_Component:
   - component: {fileID: 686001960}
   - component: {fileID: 686001959}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Mouth
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1758,7 +1791,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 702906047}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Hips
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1801,7 +1834,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!212 &715152110
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1858,7 +1891,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 715152109}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -1.57, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1961,7 +1994,7 @@ GameObject:
   m_Component:
   - component: {fileID: 721268858}
   - component: {fileID: 721268857}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Left Eye
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2040,9 +2073,12 @@ GameObject:
   m_Component:
   - component: {fileID: 722661141}
   - component: {fileID: 722661142}
-  m_Layer: 0
+  - component: {fileID: 722661143}
+  - component: {fileID: 722661144}
+  - component: {fileID: 722661145}
+  m_Layer: 8
   m_Name: AprilNPC
-  m_TagString: Untagged
+  m_TagString: Interactable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2056,7 +2092,7 @@ Transform:
   m_GameObject: {fileID: 722661140}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.2, y: 0.2, z: 1}
   m_Children:
   - {fileID: 147657614}
   - {fileID: 2136955066}
@@ -2082,6 +2118,75 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &722661143
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 722661140}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83e631df3d67f174387fc7f2029b025b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  character: {fileID: 11400000, guid: 30694e1d1cee07342b33578bb12a96a6, type: 2}
+  isStationary: 0
+  givenDirections: 1
+  directions:
+  - {fileID: 1325420270}
+  - {fileID: 1126819117}
+  - {fileID: 1301180606}
+  defaultWaitTime: 5
+  waitTimes: []
+  moveSpeed: 1
+--- !u!50 &722661144
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 722661140}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 4
+--- !u!61 &722661145
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 722661140}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.0885334, y: 1.7485304}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 8.879456, y: 8.923723}
+  m_EdgeRadius: 0
 --- !u!1 &765742198
 GameObject:
   m_ObjectHideFlags: 0
@@ -2242,7 +2347,7 @@ GameObject:
   m_Component:
   - component: {fileID: 821492835}
   - component: {fileID: 821492836}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: April Left Foot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2321,7 +2426,7 @@ GameObject:
   m_Component:
   - component: {fileID: 837576553}
   - component: {fileID: 837576554}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Skirt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2400,7 +2505,7 @@ GameObject:
   m_Component:
   - component: {fileID: 856559591}
   - component: {fileID: 856559590}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Eye
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2805,7 +2910,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1045121381}
   - component: {fileID: 1045121382}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Hair
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2884,7 +2989,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1098217276}
   - component: {fileID: 1098217277}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Far Forearm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2953,6 +3058,36 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1126819116
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1126819117}
+  m_Layer: 0
+  m_Name: AprilGoal1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1126819117
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1126819116}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -26.9, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 73988764}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1169225637
 GameObject:
   m_ObjectHideFlags: 0
@@ -2962,7 +3097,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1169225638}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Face
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3155,7 +3290,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1271636835}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Legs
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3298,6 +3433,36 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1301180605
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1301180606}
+  m_Layer: 0
+  m_Name: AprilGoal2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1301180606
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1301180605}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -26.900002, y: 8.2, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 73988764}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1306920188
 GameObject:
   m_ObjectHideFlags: 0
@@ -3308,7 +3473,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1306920189}
   - component: {fileID: 1306920190}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Shoulder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3378,6 +3543,36 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1325420269
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1325420270}
+  m_Layer: 0
+  m_Name: AprilGoal0
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1325420270
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1325420269}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 19.8, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 73988764}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1329458806
 GameObject:
   m_ObjectHideFlags: 0
@@ -3419,7 +3614,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1340539371}
   - component: {fileID: 1340539370}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: AprilHeadRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3500,7 +3695,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1398633848}
   - component: {fileID: 1398633847}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Left Eyebrow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3735,7 +3930,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1668808045}
   - component: {fileID: 1668808044}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Right Eye
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3813,7 +4008,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1676954708}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Face
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3849,7 +4044,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1707915250}
   - component: {fileID: 1707915251}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Right Shoulder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3929,7 +4124,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1732598099}
   - component: {fileID: 1732598100}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Close Forearm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4128,7 +4323,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1839753227}
   - component: {fileID: 1839753226}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Mouth
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4207,7 +4402,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1972598118}
   - component: {fileID: 1972598119}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Left Forearm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4617,7 +4812,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2135200746}
   - component: {fileID: 2135200747}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Hair
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4695,7 +4890,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2136955066}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Side
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4730,7 +4925,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2142773676}
   - component: {fileID: 2142773677}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Skirt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
