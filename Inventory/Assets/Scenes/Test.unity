@@ -239,6 +239,7 @@ MonoBehaviour:
   dialogueBox: {fileID: 479062346}
   dialogueText: {fileID: 367406738}
   nameText: {fileID: 1139503843}
+  player: {fileID: 715152113}
 --- !u!1 &73988763
 GameObject:
   m_ObjectHideFlags: 0
@@ -2027,7 +2028,7 @@ Canvas:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 619243684}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_RenderMode: 2
   m_Camera: {fileID: 519420031}

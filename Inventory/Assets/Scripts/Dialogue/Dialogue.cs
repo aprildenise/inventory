@@ -13,6 +13,7 @@ public class Dialogue : MonoBehaviour
     [SerializeField] private TextMeshProUGUI dialogueText;
     [SerializeField] private TextMeshProUGUI nameText;
     private Animator animator;
+    [SerializeField] private PlayerController player; // temp for now
 
     // Variables
     private int entryCount;
@@ -21,6 +22,9 @@ public class Dialogue : MonoBehaviour
     private bool cancelTyping;
     private bool noMoreEntries;
     private bool dialogueComplete;
+    private bool dialogueInProgress;
+
+    private NPCController currentNPC; // temporary
 
 
     // Start is called before the first frame update
@@ -32,11 +36,18 @@ public class Dialogue : MonoBehaviour
         cancelTyping = false;
         noMoreEntries = true;
         dialogueComplete = true;
+        dialogueInProgress = false;
     }
 
     // Update is called once per frame
     private void Update()
     {
+
+        if (!dialogueInProgress)
+        {
+            return;
+        }
+
         //if the user uses the submit key
         if (Input.GetButtonDown("Submit") && !noMoreEntries)
         {
@@ -44,7 +55,7 @@ public class Dialogue : MonoBehaviour
             {
                 //if the current entry has finished typing on screen, allow the player to see the next entry
                 cancelTyping = false;
-                DisplayDialogue();
+                DisplayDialogue(currentNPC);
             }
             else if (isTyping && !cancelTyping)
             {
@@ -68,7 +79,9 @@ public class Dialogue : MonoBehaviour
         // Turn on the dialogue UI
         UI.GetComponent<Canvas>().enabled = true;
         dialogueComplete = false;
+        dialogueInProgress = true;
         noMoreEntries = false;
+        currentNPC = npc;
 
         // Move the dialogue box so it is over the given NPC in the scene
         // by using its collider
@@ -80,6 +93,7 @@ public class Dialogue : MonoBehaviour
         dialogueBox.transform.position = newPos;
 
         // Display the diaogue text
+        Debug.Log("displaying dialogue in:" + gameObject.name);
         DisplayDialogue(npc);
     }
 
@@ -92,6 +106,7 @@ public class Dialogue : MonoBehaviour
         {
             // No more entries
             noMoreEntries = true;
+            EndDialogue();
             return;
         }
 
@@ -100,6 +115,7 @@ public class Dialogue : MonoBehaviour
         string name = npc.GetCharacterName();
 
         nameText.text = name;
+        dialogueText.text = entry;
 
         // Type out the entry in the dialogue box
         StartCoroutine(TypeSentence(entry));
@@ -123,7 +139,7 @@ public class Dialogue : MonoBehaviour
             }
             //type out the letters
             dialogueText.text += letter;
-            yield return new WaitForSeconds(.06f);
+            yield return new WaitForSeconds(.1f);
 
         }
         dialogueText.text = entry;
@@ -139,6 +155,10 @@ public class Dialogue : MonoBehaviour
         dialogueComplete = true;
         isTyping = false;
         cancelTyping = false;
+        player.SetIsInDialogue(false);
+        UI.GetComponent<Canvas>().enabled = false;
+        Debug.Log("currentnpc:" + currentNPC);
+        currentNPC.EndDialogue();
         //duim.TurnOffUI();
     }
 

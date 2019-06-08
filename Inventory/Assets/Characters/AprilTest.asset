@@ -12,8 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc6202b3ffebf734e87d026724112b4a, type: 3}
   m_Name: AprilTest
   m_EditorClassIdentifier: 
-  characterName: The GameDev
-  characterSpeech:
-  - Hey there!
+  characterName: April
+  characterDialogue:
   - We're testing out the dialogue system!
-  - So, we hope this works!
+  - Here it is! Wow!

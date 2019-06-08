@@ -136,10 +136,12 @@ public class NPCController : MonoBehaviour
         // Check if the NPC is halted. If so, don't do anything to change its position
         if (isHalted)
         {
+            //Debug.Log("is halted");
             return;
         }
 
         // Move the NPC to the current position in moveVelocity and update the animator
+        isMoving = true;
         animator.SetBool("isMoving", true);
         animator.SetFloat("moveX", moveDirection.x);
         animator.SetFloat("moveY", moveDirection.y);
@@ -153,12 +155,12 @@ public class NPCController : MonoBehaviour
         // Check if the NPC is has arrived at its current goal on its path
         if (!isStationary && givenDirections)
         {
-            //Debug.Log("distance:" + Vector2.Distance(transform.position, directions[currentGoal].position));
+            Debug.Log("distance:" + Vector2.Distance(transform.position, directions[currentGoal].position));
 
             if (Vector2.Distance(transform.position, directions[currentGoal].position) <= .1 && isMoving)
             {
                 // Change the goal of the NPC
-                //Debug.Log("STOP");
+                Debug.Log("STOP");
                 isMoving = false;
                 moveVelocity = Vector2.zero;
                 
@@ -187,7 +189,7 @@ public class NPCController : MonoBehaviour
 
                 //Debug.Log("currentGoal:" + currentGoal);
 
-                StartCoroutine(Wait());
+                StartCoroutine(WaitOnPath());
                 GetNextGoal();
 
                 return;
@@ -198,7 +200,7 @@ public class NPCController : MonoBehaviour
     }
 
 
-    private IEnumerator Wait()
+    private IEnumerator WaitOnPath()
     {
         
         isHalted = true;
@@ -212,6 +214,7 @@ public class NPCController : MonoBehaviour
         // Wait a some seconds and then continue going
         yield return new WaitForSeconds(defaultWaitTime);
 
+        //isMoving = true;
         isHalted = false;
     }
 
@@ -242,6 +245,8 @@ public class NPCController : MonoBehaviour
                 animator.SetBool("isSpeaking", true);
                 animator.SetFloat("lastMoveX", Vector2.up.x);
                 animator.SetFloat("lastMoveY", Vector2.up.y);
+                animator.SetFloat("moveX", Vector2.up.x);
+                animator.SetFloat("moveY", Vector2.up.y);
 
 
             }
@@ -264,6 +269,8 @@ public class NPCController : MonoBehaviour
                 animator.SetBool("isSpeaking", true);
                 animator.SetFloat("lastMoveX", Vector2.right.x);
                 animator.SetFloat("lastMoveY", Vector2.right.y);
+                animator.SetFloat("moveX", Vector2.right.x);
+                animator.SetFloat("moveY", Vector2.right.y);
 
             }
         }
@@ -285,6 +292,8 @@ public class NPCController : MonoBehaviour
                 animator.SetBool("isSpeaking", true);
                 animator.SetFloat("lastMoveX", Vector2.down.x);
                 animator.SetFloat("lastMoveY", Vector2.down.y);
+                animator.SetFloat("moveX", Vector2.down.x);
+                animator.SetFloat("moveY", Vector2.down.y);
 
             }
         }
@@ -306,19 +315,53 @@ public class NPCController : MonoBehaviour
                 animator.SetBool("isSpeaking", true);
                 animator.SetFloat("lastMoveX", Vector2.left.x);
                 animator.SetFloat("lastMoveY", Vector2.left.y);
+                animator.SetFloat("moveX", Vector2.left.x);
+                animator.SetFloat("moveY", Vector2.left.y);
 
             }
         }
 
         // Display the dialogue UI
-        DisplayDialogue();
+        Debug.Log("trigger dialogue in:" + gameObject.name);
+        TriggerDialogue();
     }
 
 
-    private void DisplayDialogue()
+    private void TriggerDialogue()
     {
         // Call the dialogue manager
-        dialogueManager.DisplayDialogue(this);
+        Debug.Log("this:" + this);
+        dialogueManager.TriggerDialogue(this);
+    }
+
+
+    public void EndDialogue()
+    {
+        // Make sure that the player is no longer speaking
+
+        isSpeaking = false;
+        animator.SetBool("isSpeaking", false);
+        StartCoroutine(WaitAfterDialogue());
+
+        Debug.Log("End dialogue");
+    }
+
+
+    private IEnumerator WaitAfterDialogue()
+    {
+
+        Debug.Log("wait after dialouge");
+
+        isHalted = true;
+
+        // Stop moving and set the animator's idle animation
+        isMoving = false;
+        animator.SetBool("isMoving", false);
+
+        // Wait a some seconds and then continue going
+        yield return new WaitForSeconds(defaultWaitTime);
+
+        isHalted = false;
     }
 
 

@@ -20,6 +20,7 @@ public class PlayerController : MonoBehaviour
     private GameObject currentInteraction;
     private GameObject heldItem;
     private bool isHolding;
+    private bool isInDialogue;
 
     // For inventory/menu management
     private bool onMenu;
@@ -50,6 +51,13 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        // If in dialogue, can't open up ANY menus
+        if (isInDialogue)
+        {
+            //Debug.Log("NOPE!");
+            return;
+        }
 
         // Get inventory menu input
         if (Input.GetButtonDown("QButton"))
@@ -123,7 +131,7 @@ public class PlayerController : MonoBehaviour
                 if (currentInteraction.GetComponent<NPCController>() != null)
                 {
                     Debug.Log("interacting with an npc");
-                    EnterDialogue();
+                    TriggerDialogue();
                     // Enter dialogue with the NPC
                 }
             }
@@ -166,11 +174,12 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    private void EnterDialogue()
+    private void TriggerDialogue()
     {
         // Have the NPC enter dialogue
         NPCController npcController = currentInteraction.GetComponent<NPCController>();
         npcController.EnterDialogue();
+        isInDialogue = true;
     }
 
 
@@ -197,6 +206,11 @@ public class PlayerController : MonoBehaviour
         Debug.Log("Threw an item. helditem:" + heldItem);
     }
 
+
+    public void SetIsInDialogue(bool set)
+    {
+        isInDialogue = set;
+    }
 
 
     // Move the player based on the movement input
