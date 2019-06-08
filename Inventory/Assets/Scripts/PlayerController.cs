@@ -123,6 +123,7 @@ public class PlayerController : MonoBehaviour
                 if (currentInteraction.GetComponent<NPCController>() != null)
                 {
                     Debug.Log("interacting with an npc");
+                    EnterDialogue();
                     // Enter dialogue with the NPC
                 }
             }
@@ -167,7 +168,9 @@ public class PlayerController : MonoBehaviour
 
     private void EnterDialogue()
     {
-
+        // Have the NPC enter dialogue
+        NPCController npcController = currentInteraction.GetComponent<NPCController>();
+        npcController.EnterDialogue();
     }
 
 

@@ -10,7 +10,7 @@ public class Character : ScriptableObject
     // For dialogue
     public string characterName;
     [TextArea]
-    public string[] characterSpeech;
+    public string[] characterDialogue;
 
 
 

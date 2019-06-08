@@ -8,9 +8,10 @@ public class NPCController : MonoBehaviour
 
     // References
     // For animation
+    [SerializeField] private Dialogue dialogueManager;
     private Animator animator;
     private Rigidbody2D rigidBody;
-    public Character character;
+    [SerializeField] private Character character;
 
     // Variables
     // For movement
@@ -23,11 +24,11 @@ public class NPCController : MonoBehaviour
     private Vector2 moveVelocity;
     private Vector2 moveDirection;
 
-    public bool isStationary; // if the NPC remains stationary
-    public bool givenDirections; // if the NPC is given a specific path to follow. Else, go in random directions
-    public Transform[] directions; // list of directions/corners of a region that the NPC must follow/stay in
+    [SerializeField] private bool isStationary; // if the NPC remains stationary
+    [SerializeField] private bool givenDirections; // if the NPC is given a specific path to follow. Else, go in random directions
+    [SerializeField] private Transform[] directions; // list of directions/corners of a region that the NPC must follow/stay in
     public float defaultWaitTime;
-    public float[] waitTimes; // optional wait times that the NPC will follow at each direction
+    [SerializeField] private float[] waitTimes; // optional wait times that the NPC will follow at each direction
 
     private int currentGoal; // index of the NPC's current goal it must follow in its path
 
@@ -219,8 +220,120 @@ public class NPCController : MonoBehaviour
     public void EnterDialogue()
     {
         isHalted = true;
+        isMoving = false;
         isSpeaking = true;
+
+        // Raycast in all 4 directions to find the player and face them
+
+        // Raycast up
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.up);
+
+        // Check if it hits the player
+        if (hit.collider != null)
+        {
+
+            //Debug.Log("HIT!");
+            //Debug.Log("hit:" + hit.collider.gameObject.name);
+
+            if (hit.collider.gameObject.CompareTag("Player"))
+            {
+                // NPC faces up
+                //Debug.Log("DOUBLE HIT!");
+                animator.SetBool("isSpeaking", true);
+                animator.SetFloat("lastMoveX", Vector2.up.x);
+                animator.SetFloat("lastMoveY", Vector2.up.y);
+
+
+            }
+        }
+
+        // Raycast right
+        hit = Physics2D.Raycast(transform.position, Vector2.right);
+
+        // Check if it hits the player
+        if (hit.collider != null)
+        {
+
+            //Debug.Log("HIT!");
+            //Debug.Log("hit:" + hit.collider.gameObject.name);
+
+            if (hit.collider.gameObject.CompareTag("Player"))
+            {
+                // NPC faces up
+                //Debug.Log("DOUBLE HIT!");
+                animator.SetBool("isSpeaking", true);
+                animator.SetFloat("lastMoveX", Vector2.right.x);
+                animator.SetFloat("lastMoveY", Vector2.right.y);
+
+            }
+        }
+
+        // Raycast down
+        hit = Physics2D.Raycast(transform.position, Vector2.down);
+
+        // Check if it hits the player
+        if (hit.collider != null)
+        {
+
+            //Debug.Log("HIT!");
+            //Debug.Log("hit:" + hit.collider.gameObject.name);
+
+            if (hit.collider.gameObject.CompareTag("Player"))
+            {
+                // NPC faces up
+                //Debug.Log("DOUBLE HIT!");
+                animator.SetBool("isSpeaking", true);
+                animator.SetFloat("lastMoveX", Vector2.down.x);
+                animator.SetFloat("lastMoveY", Vector2.down.y);
+
+            }
+        }
+
+        // Raycast left
+        hit = Physics2D.Raycast(transform.position, Vector2.left);
+
+        // Check if it hits the player
+        if (hit.collider != null)
+        {
+
+            //Debug.Log("HIT!");
+            //Debug.Log("hit:" + hit.collider.gameObject.name);
+
+            if (hit.collider.gameObject.CompareTag("Player"))
+            {
+                // NPC faces up
+                //Debug.Log("DOUBLE HIT!");
+                animator.SetBool("isSpeaking", true);
+                animator.SetFloat("lastMoveX", Vector2.left.x);
+                animator.SetFloat("lastMoveY", Vector2.left.y);
+
+            }
+        }
+
+        // Display the dialogue UI
+        DisplayDialogue();
     }
+
+
+    private void DisplayDialogue()
+    {
+        // Call the dialogue manager
+        dialogueManager.DisplayDialogue(this);
+    }
+
+
+
+    public string[] GetCharacterDialogue()
+    {
+        return character.characterDialogue;
+    }
+
+
+    public string GetCharacterName()
+    {
+        return character.characterName;
+    }
+
 
 
 }
